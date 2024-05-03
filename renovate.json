@@ -1,4 +1,13 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>oliversalzburg/renovate-config:default"]
+  "extends": ["github>oliversalzburg/renovate-config:default"],
+  "customDatasources": {
+    "apt": {
+      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/oliversalzburg/apt-repositories/main/apt/{{packageName}}.json",
+      "format": "json",
+      "transformTemplates": [
+        "{\"releases\":[{\"version\": $$.version }]}"
+      ]
+    }
+  }
 }
