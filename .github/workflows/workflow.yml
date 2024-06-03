@@ -1,3 +1,0 @@
-env:
-  # renovate: datasource=custom.apt depName=debian/bookworm/main/gcc versioning=deb
-  GCC_VERSION: "4:12.2.0-3"

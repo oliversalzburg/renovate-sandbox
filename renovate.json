@@ -1,13 +1,19 @@
 {
   "$schema": "https://docs.renovatebot.com/renovate-schema.json",
-  "extends": ["github>oliversalzburg/renovate-config:default"],
-  "customDatasources": {
-    "apt": {
-      "defaultRegistryUrlTemplate": "https://raw.githubusercontent.com/oliversalzburg/apt-repositories/main/apt/{{packageName}}.json",
-      "format": "json",
-      "transformTemplates": [
-        "{\"releases\":[{\"version\": $$.version }]}"
+  
+  "customManagers": [
+    {
+      "customType": "regex",
+      "fileMatch": [".ya?ml$"],
+      "matchStrings": [
+        "# renovate: datasource=(?<datasource>[a-z-.]+?) depName=(?<depName>[^\\s]+?)(?: (?:packageName)=(?<packageName>[^\\s]+?))?(?: versioning=(?<versioning>[^\\s]+?))?(?: extractVersion=(?<extractVersion>[^\\s]+?))?(?: registryUrl=(?<registryUrl>[^\\s]+?))?\\s+[A-Za-z0-9_]+?_version\\s*:\\s*[\"']?(?<currentValue>.+?)[\"']?\\s"
       ]
     }
-  }
+  ],
+  "packageRules": [
+    {
+      "matchDatasources": ["docker"],
+      "pinDigests": true
+    }
+  ]
 }
